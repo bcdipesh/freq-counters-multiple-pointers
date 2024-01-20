@@ -16,15 +16,33 @@ function countPairs(numsArr, targetSum) {
   // Create a variable called totalPairs and initialize it to 0
   let totalPairs = 0;
 
-  // Loop over numsArr
-  for (let i = 0; i < numsArr.length; i++) {
-    /**
-     * For each iteration loop over numsArr and check if the sum of
-     * current number from outer loop and inner loop equals targetSum
-     * If it does increase totalPairs
-     */
-    for (let j = i + 1; j < numsArr.length; j++) {
-      if (numsArr[i] + numsArr[j] === targetSum) totalPairs = totalPairs + 1;
+  // Sort the numsArr
+  /**
+   * Because the array is sorted, we do not have to add all the numbers with each other.
+   * For ex [1, 2, 3, 4, 5], 7 => no matter if we add 1 with 2, 3 or 4 we will always get sum
+   * less than the when it is added with 5. This removes unnecessary comparisons.
+   */
+  numsArr.sort((num1, num2) => num1 - num2);
+
+  // Create two variables leftIdx and rightIdx. set leftIdx to 0 and rightIdx to the last index of numsArr
+  let leftIdx = 0;
+  let rightIdx = numsArr.length - 1;
+
+  // Loop until leftIdx crosses rightIdx
+  while (leftIdx < rightIdx) {
+    // Check if sum of numbers at leftIdx and rightIdx equals targetSum
+    const sum = numsArr[leftIdx] + numsArr[rightIdx];
+    if (sum === targetSum) {
+      // If it does increment totalPairs and move indexes closer
+      totalPairs = totalPairs + 1;
+      leftIdx++;
+      rightIdx--;
+    } else if (sum < targetSum) {
+      // If sum is less than targetSum move leftIdx closer to rightIdx
+      leftIdx++;
+    } else {
+      // If sum is greater than targetSum move rightIdx closer to leftIdx
+      rightIdx--;
     }
   }
 
