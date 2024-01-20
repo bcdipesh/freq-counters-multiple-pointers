@@ -38,5 +38,3 @@ function averagePair(arr, targetAverage) {
   // If code execution continues out of the loop then return false
   return false;
 }
-
-module.exports = averagePair;

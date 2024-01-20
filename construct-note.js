@@ -35,5 +35,3 @@ function constructNote(message, letters) {
   // if it makes out of the loop return true
   return true;
 }
-
-module.exports = constructNote;
